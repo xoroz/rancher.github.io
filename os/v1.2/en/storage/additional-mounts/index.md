@@ -43,3 +43,16 @@ With rancher 1.1.1+ you do no longer need to create the mount-point folder, it w
 By default, `/media` and `/mnt` are mounted as shared in the console container. This means that mounts within these directories will propagate to the host as well as other system services that mount these folders as shared.
 
 See [here](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt) for a more detailed overview of shared mounts and their properties.
+
+#### [NOTE additional mounts]
+on version 1.4.0 the above described did not work.
+I had to setup via 
+ros config set mounts '[["/dev/mapper/vg0-lg0", "/var/lib/docker", "ext4", ""]]'
+and the applied config on cloud-config.yml was:
+
+#cloud-config.yml (first line)
+mounts:
+- - /dev/mapper/vg0-lg0
+  - /var/lib/docker
+  - ext4
+  - ""
